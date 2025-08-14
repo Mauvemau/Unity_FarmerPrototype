@@ -11,8 +11,6 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private float spawnInterval = 1f;
 
-    [SerializeField] List<GameObject> spawns;
-
     private float nextSpawn = 0f;
 
     private void Update()
@@ -31,7 +29,6 @@ public class Spawner : MonoBehaviour
             spawnPos.y += spawnPointY;
             GameObject spawn = Instantiate(spawnPrefab, spawnPos, Quaternion.identity);
             spawn.transform.parent = transform;
-            spawns.Add(spawn);
             nextSpawn = Time.time + spawnInterval;
             if (!playerRef) return;
             if (spawn.TryGetComponent<Enemy>(out Enemy enemy))
