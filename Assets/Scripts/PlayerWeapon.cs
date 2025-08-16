@@ -6,8 +6,10 @@ public class PlayerWeapon : MonoBehaviour {
     [SerializeField] private Camera playerCam;
     
     [Header("Melee Attack Settings")] 
-    [SerializeField, Min(0.1f)] private float meleeRange = 3f;
+    [SerializeField, Min(0.1f)] private float meleeAttackRange = 3f;
     [SerializeField, Range(10f, 360f)] private float meleeAttackAngle = 60f;
+    [SerializeField, Min(0)] private float meleeAttackPushForce = 12f; 
+    [SerializeField] private LayerMask enemyLayer;
 
     [Header("Visual Settings")] 
     [SerializeField, Min(12)] private int arcSegments = 40;
@@ -16,6 +18,35 @@ public class PlayerWeapon : MonoBehaviour {
     private Vector2 _aimDirection;
     private LineRenderer _lr;
     private MeshFilter _mf;
+
+    [SerializeField, HideInInspector]
+    private CircleCollider2D colliderAttackRadius;
+    
+    private void Attack() {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            transform.position, 
+            meleeAttackRange * transform.lossyScale.x,
+            enemyLayer
+        );
+
+        bool fullCircle = Mathf.Approximately(meleeAttackAngle, 360f);
+
+        foreach (var col in hits) {
+            if (!col.TryGetComponent<Enemy>(out var enemy))
+                continue;
+
+            Vector2 toEnemy = ((Vector2)col.transform.position - (Vector2)transform.position);
+            Vector2 pushDir = toEnemy.normalized;
+
+            if (!fullCircle) {
+                float angleToEnemy = Vector2.Angle(_aimDirection, pushDir);
+                if (angleToEnemy > meleeAttackAngle / 2f)
+                    continue;
+            }
+            
+            enemy.Push(pushDir, meleeAttackPushForce);
+        }
+    }
     
     private void DrawAttackArc() {
         if (!_mf) return;
@@ -31,7 +62,7 @@ public class PlayerWeapon : MonoBehaviour {
             float currentAngle = startAngle + (meleeAttackAngle / arcSegments) * i;
             float rad = currentAngle * Mathf.Deg2Rad;
 
-            vertices[i + 1] = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * meleeRange;
+            vertices[i + 1] = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * meleeAttackRange;
         }
 
         for (int i = 0; i < arcSegments; i++) {
@@ -56,7 +87,7 @@ public class PlayerWeapon : MonoBehaviour {
         for (int i = 0; i <= segments; i++) {
             float angle = (360f / segments) * i;
             float rad = angle * Mathf.Deg2Rad;
-            Vector3 point = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * meleeRange;
+            Vector3 point = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * meleeAttackRange;
             _lr.SetPosition(i, point);
         }
     }
@@ -69,6 +100,9 @@ public class PlayerWeapon : MonoBehaviour {
         
         DrawRangeCircle();
         DrawAttackArc();
+        if (Input.GetMouseButtonDown(0)) {
+            Attack();
+        }
     }
 
     private void Awake() {
@@ -86,5 +120,12 @@ public class PlayerWeapon : MonoBehaviour {
 
         _mf = mf;
         mr.material = new Material(Shader.Find("Sprites/Default")) { color = arcColor };
+    }
+
+    private void OnValidate() {
+        if(!TryGetComponent<CircleCollider2D>(out var col)) return;
+        colliderAttackRadius = col;
+        colliderAttackRadius.isTrigger = true;
+        colliderAttackRadius.radius = meleeAttackRange;
     }
 }
