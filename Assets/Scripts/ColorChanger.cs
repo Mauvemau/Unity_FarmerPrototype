@@ -12,13 +12,13 @@ public class ColorChanger : MonoBehaviour
     private MeshRenderer meshRenderer;
     private Coroutine crossFadeRoutine;
 
-    void Awake ()
+    private void Awake ()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material.color = startColor;
     }
 
-    void Update ()
+    private void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

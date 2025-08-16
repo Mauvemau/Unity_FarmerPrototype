@@ -289,7 +289,7 @@ MonoBehaviour:
   spawnPrefab: {fileID: 1403516159166458435, guid: dbd326dfebe5d0f43b898d400bbf9bf7, type: 3}
   minSpawnDistance: 1
   maxPawnDistance: 10
-  spawnInterval: 1
+  spawnInterval: 1.5
 --- !u!4 &1385579814
 Transform:
   m_ObjectHideFlags: 0
@@ -361,7 +361,33 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   arcSegments: 40
-  arcColor: {r: 0.7830189, g: 0.16620687, b: 0.6118529, a: 0.59607846}
+  arcColor: {r: 1, g: 0, b: 1, a: 0.5254902}
+  arcColorAttack: {r: 1, g: 1, b: 1, a: 0.48235294}
+  attackColorCrossFadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackColorCrossFadeDuration: 0.3
   colliderAttackRadius: {fileID: 1978533143}
 --- !u!23 &1978533140
 MeshRenderer:

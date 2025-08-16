@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer), typeof(MeshFilter), typeof(MeshRenderer))]
@@ -13,15 +14,48 @@ public class PlayerWeapon : MonoBehaviour {
 
     [Header("Visual Settings")] 
     [SerializeField, Min(12)] private int arcSegments = 40;
-    [SerializeField] private Color arcColor = Color.red;
+    [SerializeField] private Color arcColor = Color.magenta;
+    [SerializeField] private Color arcColorAttack = Color.white;
+    [SerializeField] private AnimationCurve attackColorCrossFadeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+    [SerializeField, Min(0)] private float attackColorCrossFadeDuration = .3f;
 
     private Vector2 _aimDirection;
     private LineRenderer _lr;
     private MeshFilter _mf;
+    private MeshRenderer _mr;
+    private Coroutine _colorCrossFadeRoutine;
 
     [SerializeField, HideInInspector]
     private CircleCollider2D colliderAttackRadius;
 
+    private IEnumerator DoArcColorCrossFade() {
+        _lr.startColor = arcColorAttack;
+        _lr.endColor = arcColorAttack;
+        _mr.material.color = arcColorAttack;
+
+        float timer = 0f;
+
+        while (timer < attackColorCrossFadeDuration) {
+            float t = attackColorCrossFadeCurve.Evaluate(timer / attackColorCrossFadeDuration);
+            
+            Color current = Color.Lerp(arcColorAttack, arcColor, t);
+
+            _lr.startColor = current;
+            _lr.endColor = current;
+            _mr.material.color = current;
+
+            yield return null;
+            timer += Time.deltaTime;
+        }
+
+        // ensure reset to base
+        _lr.startColor = arcColor;
+        _lr.endColor = arcColor;
+        _mr.material.color = arcColor;
+
+        _colorCrossFadeRoutine = null;
+    }
+    
     private void HandleCheatInput() {
         if (Input.GetKeyDown(KeyCode.F5)) {
             meleeAttackAngle += 5f;
@@ -68,6 +102,10 @@ public class PlayerWeapon : MonoBehaviour {
             
             enemy.Push(pushDir, meleeAttackPushForce);
         }
+        
+        if (_colorCrossFadeRoutine != null)
+            StopCoroutine(_colorCrossFadeRoutine);
+        _colorCrossFadeRoutine = StartCoroutine(DoArcColorCrossFade());
     }
     
     private void DrawAttackArc() {
@@ -142,7 +180,8 @@ public class PlayerWeapon : MonoBehaviour {
         _lr.endColor = arcColor;
 
         _mf = mf;
-        mr.material = new Material(Shader.Find("Sprites/Default")) { color = arcColor };
+        _mr = mr;
+        _mr.material = new Material(Shader.Find("Sprites/Default")) { color = arcColor };
     }
 
     private void OnValidate() {
