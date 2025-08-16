@@ -1,8 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
-    [SerializeField] private Enemy enemiesInRange;
+public class Player : MonoBehaviour {
 
     public void TakeDamage()
     {
