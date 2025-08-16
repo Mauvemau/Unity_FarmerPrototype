@@ -9,6 +9,7 @@ public class PlayerWeapon : MonoBehaviour {
     [Header("Melee Attack Settings")] 
     [SerializeField, Min(0.1f)] private float meleeAttackRange = .75f;
     [SerializeField, Range(10f, 360f)] private float meleeAttackAngle = 60f;
+    [SerializeField, Min(0)] private float attackRate = .75f; 
     [SerializeField, Min(0)] private float meleeAttackPushForce = 12f; 
     [SerializeField] private LayerMask enemyLayer;
 
@@ -20,6 +21,7 @@ public class PlayerWeapon : MonoBehaviour {
     [SerializeField, Min(0)] private float attackColorCrossFadeDuration = .3f;
 
     private Vector2 _aimDirection;
+    private float nextAttack = 0;
     private LineRenderer _lr;
     private MeshFilter _mf;
     private MeshRenderer _mr;
@@ -79,6 +81,9 @@ public class PlayerWeapon : MonoBehaviour {
     }
     
     private void Attack() {
+        if (Time.time < nextAttack) return;
+        nextAttack = Time.time + attackRate;
+        
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             transform.position, 
             meleeAttackRange * transform.lossyScale.x,
@@ -100,6 +105,7 @@ public class PlayerWeapon : MonoBehaviour {
                     continue;
             }
             
+            enemy.TakeDamage(1);
             enemy.Push(pushDir, meleeAttackPushForce);
         }
         
@@ -161,9 +167,8 @@ public class PlayerWeapon : MonoBehaviour {
         
         DrawRangeCircle();
         DrawAttackArc();
-        if (Input.GetMouseButtonDown(0)) {
-            Attack();
-        }
+        
+        Attack();
     }
 
     private void Awake() {

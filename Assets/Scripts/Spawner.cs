@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
 
     private void HandleCheatInput() {
         if (Input.GetKeyDown(KeyCode.F1)) {
-            Debug.Log("Stopping spawning");
+            Debug.Log( spawn ? "Stopping spawning" : "Starting spawning");
             spawn = !spawn;
         }
         if (Input.GetKeyDown(KeyCode.F2)) {
