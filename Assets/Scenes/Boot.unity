@@ -356,7 +356,7 @@ MonoBehaviour:
   playerCam: {fileID: 519420031}
   meleeAttackRange: 0.75
   meleeAttackAngle: 60
-  meleeAttackPushForce: 100
+  meleeAttackPushForce: 12
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

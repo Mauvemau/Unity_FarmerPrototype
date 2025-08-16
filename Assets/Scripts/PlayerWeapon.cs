@@ -6,7 +6,7 @@ public class PlayerWeapon : MonoBehaviour {
     [SerializeField] private Camera playerCam;
     
     [Header("Melee Attack Settings")] 
-    [SerializeField, Min(0.1f)] private float meleeAttackRange = 3f;
+    [SerializeField, Min(0.1f)] private float meleeAttackRange = .75f;
     [SerializeField, Range(10f, 360f)] private float meleeAttackAngle = 60f;
     [SerializeField, Min(0)] private float meleeAttackPushForce = 12f; 
     [SerializeField] private LayerMask enemyLayer;
@@ -21,6 +21,28 @@ public class PlayerWeapon : MonoBehaviour {
 
     [SerializeField, HideInInspector]
     private CircleCollider2D colliderAttackRadius;
+
+    private void HandleCheatInput() {
+        if (Input.GetKeyDown(KeyCode.F5)) {
+            meleeAttackAngle += 5f;
+            if(meleeAttackAngle > 360f) meleeAttackAngle = 360f;
+            Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
+        }
+        if (Input.GetKeyDown(KeyCode.F6)) {
+            meleeAttackAngle -= 5f;
+            if(meleeAttackAngle < 10) meleeAttackAngle = 10f;
+            Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
+        }
+        if (Input.GetKeyDown(KeyCode.F7)) {
+            meleeAttackRange += .1f;
+            Debug.Log($"Melee attack range: {meleeAttackRange}");
+        }
+        if (Input.GetKeyDown(KeyCode.F8)) {
+            meleeAttackRange -= .1f;
+            if (meleeAttackRange < .15f) meleeAttackRange = .15f;
+            Debug.Log($"Melee attack range: {meleeAttackRange}");
+        }
+    }
     
     private void Attack() {
         Collider2D[] hits = Physics2D.OverlapCircleAll(
@@ -93,6 +115,7 @@ public class PlayerWeapon : MonoBehaviour {
     }
     
     private void Update() {
+        HandleCheatInput();
         if (!playerCam) return;
         Vector3 mouseWorld = playerCam.ScreenToWorldPoint(Input.mousePosition);
         

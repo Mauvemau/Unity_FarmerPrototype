@@ -3,17 +3,39 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
     [SerializeField] private GameObject playerRef;
     [SerializeField] private GameObject spawnPrefab;
-    [SerializeField] private float minSpawnDistance = 2f;
-    [SerializeField] private float maxPawnDistance = 5f;
+    [SerializeField, Min(0)] private float minSpawnDistance = 2f;
+    [SerializeField, Min(0.1f)] private float maxPawnDistance = 5f;
 
-    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField, Min(0)] private float spawnInterval = 1f;
 
+    private bool spawn = true;
     private float _nextSpawn = 0f;
 
+    private void HandleCheatInput() {
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            Debug.Log("Stopping spawning");
+            spawn = !spawn;
+        }
+        if (Input.GetKeyDown(KeyCode.F2)) {
+            spawnInterval -= .1f;
+            if (spawnInterval < 0) spawnInterval = 0;
+            Debug.Log($"Spawn interval: {spawnInterval}ms");
+        }
+        if (Input.GetKeyDown(KeyCode.F3)) {
+            spawnInterval += .1f;
+            Debug.Log($"Spawn interval: {spawnInterval}ms");
+        }
+        if (Input.GetKeyDown(KeyCode.F4)) {
+            spawnInterval = 1f;
+            Debug.Log($"Spawn interval reset!");
+        } 
+    }
+    
     private void Update() {
+        HandleCheatInput();
+        if (!spawn) return;
         if (!spawnPrefab) return;
-        if(_nextSpawn < Time.time)
-        {
+        if(_nextSpawn < Time.time) {
             bool coinFlip = Random.value > 0.5f;
             float spawnPointX = Random.Range(coinFlip ? minSpawnDistance : -minSpawnDistance,
                 coinFlip ? maxPawnDistance : -maxPawnDistance);
