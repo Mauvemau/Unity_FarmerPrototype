@@ -3,6 +3,6 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public void TakeDamage() {
-        //Debug.Log("Ouch!");
+        Debug.Log("Player was hit");
     }
 }

@@ -49,8 +49,7 @@ public class PlayerWeapon : MonoBehaviour {
             yield return null;
             timer += Time.deltaTime;
         }
-
-        // ensure reset to base
+        
         _lr.startColor = arcColor;
         _lr.endColor = arcColor;
         _mr.material.color = arcColor;
@@ -59,24 +58,33 @@ public class PlayerWeapon : MonoBehaviour {
     }
     
     private void HandleCheatInput() {
-        if (Input.GetKeyDown(KeyCode.F5)) {
+        if (Input.GetKeyDown(KeyCode.T)) {
             meleeAttackAngle += 5f;
             if(meleeAttackAngle > 360f) meleeAttackAngle = 360f;
             Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
         }
-        if (Input.GetKeyDown(KeyCode.F6)) {
+        if (Input.GetKeyDown(KeyCode.Y)) {
             meleeAttackAngle -= 5f;
             if(meleeAttackAngle < 10) meleeAttackAngle = 10f;
             Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
         }
-        if (Input.GetKeyDown(KeyCode.F7)) {
+        if (Input.GetKeyDown(KeyCode.U)) {
             meleeAttackRange += .1f;
             Debug.Log($"Melee attack range: {meleeAttackRange}");
         }
-        if (Input.GetKeyDown(KeyCode.F8)) {
+        if (Input.GetKeyDown(KeyCode.I)) {
             meleeAttackRange -= .1f;
             if (meleeAttackRange < .15f) meleeAttackRange = .15f;
             Debug.Log($"Melee attack range: {meleeAttackRange}");
+        }
+        if (Input.GetKeyDown(KeyCode.O)) {
+            attackRate -= .05f;
+            if (attackRate < .2f) attackRate = .2f;
+            Debug.Log($"Melee attack rate: {attackRate}");
+        }
+        if (Input.GetKeyDown(KeyCode.P)) {
+            attackRate += .05f;
+            Debug.Log($"Melee attack rate: {attackRate}");
         }
     }
     

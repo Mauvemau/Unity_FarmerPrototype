@@ -12,20 +12,20 @@ public class Spawner : MonoBehaviour {
     private float _nextSpawn = 0f;
 
     private void HandleCheatInput() {
-        if (Input.GetKeyDown(KeyCode.F1)) {
+        if (Input.GetKeyDown(KeyCode.Q)) {
             Debug.Log( spawn ? "Stopping spawning" : "Starting spawning");
             spawn = !spawn;
         }
-        if (Input.GetKeyDown(KeyCode.F2)) {
+        if (Input.GetKeyDown(KeyCode.W)) {
             spawnInterval -= .1f;
             if (spawnInterval < 0) spawnInterval = 0;
             Debug.Log($"Spawn interval: {spawnInterval}ms");
         }
-        if (Input.GetKeyDown(KeyCode.F3)) {
+        if (Input.GetKeyDown(KeyCode.E)) {
             spawnInterval += .1f;
             Debug.Log($"Spawn interval: {spawnInterval}ms");
         }
-        if (Input.GetKeyDown(KeyCode.F4)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
             spawnInterval = 1f;
             Debug.Log($"Spawn interval reset!");
         } 
