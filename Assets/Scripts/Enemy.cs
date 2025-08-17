@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
+    [SerializeField] private HealthBar healthBarRef;
     [SerializeField] private GameObject targetRef;
     [SerializeField] private float speed = 1.0f;
     [SerializeField] private int maxHitPoints = 3;
@@ -17,6 +18,10 @@ public class Enemy : MonoBehaviour {
     public void TakeDamage(int hitPoints) {
         currentHitPoints -= hitPoints;
         CheckIsDead();
+        if (currentHitPoints >= maxHitPoints) return;
+        if (!healthBarRef) return;
+        healthBarRef.gameObject.SetActive(true);
+        healthBarRef.SetValue(currentHitPoints);
     }
     
     public void SetTarget(GameObject targetRef) {
@@ -54,5 +59,12 @@ public class Enemy : MonoBehaviour {
             _rb = rb;
         }
         currentHitPoints = maxHitPoints;
+        if (healthBarRef) {
+            healthBarRef.SetMaxValue(maxHitPoints);
+            healthBarRef.gameObject.SetActive(false);
+        }
+        else {
+            Debug.LogWarning("Forgot to attach the health bar reference whoops");
+        }
     }
 }
