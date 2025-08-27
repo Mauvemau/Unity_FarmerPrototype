@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -58,31 +59,31 @@ public class PlayerWeapon : MonoBehaviour {
     }
     
     private void HandleCheatInput() {
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.Z)) {
             meleeAttackAngle += 5f;
             if(meleeAttackAngle > 360f) meleeAttackAngle = 360f;
             Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
         }
-        if (Input.GetKeyDown(KeyCode.Y)) {
+        if (Input.GetKeyDown(KeyCode.X)) {
             meleeAttackAngle -= 5f;
             if(meleeAttackAngle < 10) meleeAttackAngle = 10f;
             Debug.Log($"Melee attack angle: {meleeAttackAngle} degrees");
         }
-        if (Input.GetKeyDown(KeyCode.U)) {
+        if (Input.GetKeyDown(KeyCode.C)) {
             meleeAttackRange += .1f;
             Debug.Log($"Melee attack range: {meleeAttackRange}");
         }
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(KeyCode.V)) {
             meleeAttackRange -= .1f;
             if (meleeAttackRange < .15f) meleeAttackRange = .15f;
             Debug.Log($"Melee attack range: {meleeAttackRange}");
         }
-        if (Input.GetKeyDown(KeyCode.O)) {
+        if (Input.GetKeyDown(KeyCode.B)) {
             attackRate -= .05f;
             if (attackRate < .2f) attackRate = .2f;
             Debug.Log($"Melee attack rate: {attackRate}");
         }
-        if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.N)) {
             attackRate += .05f;
             Debug.Log($"Melee attack rate: {attackRate}");
         }
@@ -168,15 +169,18 @@ public class PlayerWeapon : MonoBehaviour {
     
     private void Update() {
         HandleCheatInput();
-        if (!playerCam) return;
-        Vector3 mouseWorld = playerCam.ScreenToWorldPoint(Input.mousePosition);
-        
-        _aimDirection = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
         
         DrawRangeCircle();
         DrawAttackArc();
         
         Attack();
+    }
+
+    private void LateUpdate() {
+        if (!playerCam) return;
+        Vector3 mouseWorld = playerCam.ScreenToWorldPoint(Input.mousePosition);
+        
+        _aimDirection = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
     }
 
     private void Awake() {

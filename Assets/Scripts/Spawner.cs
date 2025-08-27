@@ -12,11 +12,11 @@ public class Spawner : MonoBehaviour {
     private float _nextSpawn = 0f;
 
     private void HandleCheatInput() {
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             Debug.Log( spawn ? "Stopping spawning" : "Starting spawning");
             spawn = !spawn;
         }
-        if (Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.Q)) {
             spawnInterval -= .1f;
             if (spawnInterval < 0) spawnInterval = 0;
             Debug.Log($"Spawn interval: {spawnInterval}ms");
