@@ -42,7 +42,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -136,10 +136,10 @@ TextureImporter:
       name: Idle_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 69
-        width: 14
-        height: 22
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,10 +158,10 @@ TextureImporter:
       name: Idle_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 69
-        width: 14
-        height: 21
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: Idle_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 69
-        width: 14
-        height: 21
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: Idle_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 69
-        width: 14
-        height: 21
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: Idle_4
       rect:
         serializedVersion: 2
-        x: 10
-        y: 37
-        width: 14
-        height: 22
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: Idle_5
       rect:
         serializedVersion: 2
-        x: 42
-        y: 37
-        width: 14
-        height: 21
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: Idle_6
       rect:
         serializedVersion: 2
-        x: 74
-        y: 37
-        width: 14
-        height: 21
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: Idle_7
       rect:
         serializedVersion: 2
-        x: 106
-        y: 37
-        width: 14
-        height: 21
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: Idle_8
       rect:
         serializedVersion: 2
-        x: 10
-        y: 5
-        width: 14
-        height: 22
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: Idle_9
       rect:
         serializedVersion: 2
-        x: 42
-        y: 5
-        width: 14
-        height: 21
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: Idle_10
       rect:
         serializedVersion: 2
-        x: 74
-        y: 5
-        width: 14
-        height: 21
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: Idle_11
       rect:
         serializedVersion: 2
-        x: 106
-        y: 5
-        width: 14
-        height: 21
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 88acfc81891c338c9bf9714c284adb6f
     internalID: 0
     vertices: []
     indices: 
