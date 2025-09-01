@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetReference: {fileID: 2024619539}
-  mapBoundsReference: {fileID: 0}
+  mapBoundsReference: {fileID: 1459158527}
 --- !u!1 &579772226
 GameObject:
   m_ObjectHideFlags: 0
