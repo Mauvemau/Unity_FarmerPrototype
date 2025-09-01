@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour {
     [Header("Settings")] 
     [SerializeField] private Camera playerCam;
+
+    [Header("Animation Settings")] 
+    [SerializeField] private MeleeAttackAnimationController anim;
     
     [Header("Melee Attack Settings")] 
     [SerializeField, Min(0.1f)] private float meleeAttackRange = .75f;
@@ -14,7 +17,7 @@ public class PlayerWeapon : MonoBehaviour {
     [SerializeField, Min(0)] private float meleeAttackPushForce = 12f; 
     [SerializeField] private LayerMask enemyLayer;
 
-    [Header("Visual Settings")] 
+    [Header(" Visual Settings")] 
     [SerializeField, Min(12)] private int arcSegments = 40;
     [SerializeField] private Color arcColor = Color.magenta;
     [SerializeField] private Color arcColorAttack = Color.white;
@@ -117,6 +120,9 @@ public class PlayerWeapon : MonoBehaviour {
             enemy.TakeDamage(1);
             enemy.Push(pushDir, meleeAttackPushForce);
         }
+        
+        if(anim)
+            anim.PlayAttackAnimation(_aimDirection, meleeAttackAngle, meleeAttackRange);
         
         if (_colorCrossFadeRoutine != null)
             StopCoroutine(_colorCrossFadeRoutine);
