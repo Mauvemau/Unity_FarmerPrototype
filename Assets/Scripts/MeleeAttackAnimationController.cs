@@ -1,12 +1,13 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class MeleeAttackAnimationController : MonoBehaviour {
     [Header("Settings")] 
+    [SerializeField] private bool clockwise = false;
     [SerializeField] private float attackDuration = .25f;
     [SerializeField] private float spriteScaleOffset = 1f;
+    [SerializeField] private AnimationCurve swingCurve = AnimationCurve.Linear(0, 0, 1, 1);
     
     private SpriteRenderer _spriteRenderer;
     private float _lastAttackTimestamp;
@@ -18,7 +19,10 @@ public class MeleeAttackAnimationController : MonoBehaviour {
         while (elapsed < attackDuration) {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / attackDuration);
-            float currentAngle = Mathf.Lerp(startAngle, endAngle, t);
+            
+            float curvedT = swingCurve.Evaluate(t);
+
+            float currentAngle = Mathf.Lerp(startAngle, endAngle, curvedT);
             transform.eulerAngles = new Vector3(0, 0, currentAngle);
             yield return null;
         }
@@ -30,8 +34,8 @@ public class MeleeAttackAnimationController : MonoBehaviour {
         if (!_spriteRenderer) return;
         
         float centerDirectionAngle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
-        float startDirectionAngle = centerDirectionAngle - attackAngle / 2f;
-        float endDirectionAngle = centerDirectionAngle + attackAngle / 2f;
+        float startDirectionAngle = clockwise ? centerDirectionAngle + attackAngle / 2f : centerDirectionAngle - attackAngle / 2f;
+        float endDirectionAngle = clockwise ? centerDirectionAngle - attackAngle / 2f : centerDirectionAngle + attackAngle / 2f;
         
         transform.localScale = new Vector3(attackRadius * spriteScaleOffset, attackRadius * spriteScaleOffset, 1);
         _spriteRenderer.enabled = true;
