@@ -1,1 +1,1 @@
-Prototype project
+### A prototype project for a Bullet Heaven game, which later became [Project Harvest](https://github.com/Mauvemau/Project-Harvest)
